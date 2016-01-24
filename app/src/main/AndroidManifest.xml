@@ -3,21 +3,28 @@
     package="todo.fika.fikatodo">
 
     <application
-        android:name="todo.fika.fikatodo.FikaTodoApplication_"
+        android:name=".FikaTodoApplication_"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="todo.fika.fikatodo.LauncherActivity_"
+            android:name=".LauncherActivity_"
             android:label="@string/title_activity_launcher"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".FikaLauncherActivity_"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fika_launcher"
+            android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".FikaMonthActivity_"
+            android:theme="@style/AppTheme" />
     </application>
 
 </manifest>
