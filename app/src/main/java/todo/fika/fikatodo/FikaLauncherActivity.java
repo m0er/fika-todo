@@ -1,7 +1,6 @@
 package todo.fika.fikatodo;
 
 import android.annotation.SuppressLint;
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +10,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
+
+import todo.fika.fikatodo.month.FikaMonthActivity_;
 
 @EActivity(R.layout.activity_fika_launcher)
 public class FikaLauncherActivity extends AppCompatActivity {
@@ -29,8 +30,6 @@ public class FikaLauncherActivity extends AppCompatActivity {
         @SuppressLint("InlinedApi")
         @Override
         public void run() {
-            // Delayed removal of status and navigation bar
-
             // Note that some of these constants are new as of API 16 (Jelly Bean)
             // and API 19 (KitKat). It is safe to use them, as they are inlined
             // at compile-time and do nothing on earlier devices.

@@ -10,10 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".LauncherActivity_"
-            android:label="@string/title_activity_launcher"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".FikaLauncherActivity_"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fika_launcher"
@@ -23,8 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FikaMonthActivity_"
-            android:theme="@style/AppTheme" />
+        <activity android:name=".month.FikaMonthActivity_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <!-- For reference -->
+        <activity
+            android:name=".LauncherActivity_"
+            android:label="@string/title_activity_launcher"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

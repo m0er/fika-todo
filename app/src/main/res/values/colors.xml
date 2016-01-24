@@ -2,7 +2,19 @@
 <resources>
     <color name="colorPrimary">#795548</color>
     <color name="colorPrimaryDark">#5D4037</color>
-    <color name="colorAccent">#C5E1A5</color>
-
+    <color name="colorAccent">#FF9800</color>
+    <color name="lightColorPrimary">#D7CCC8</color>
+    <color name="colorDivider">#B6B6B6</color>
+    <color name="colorTextPrimary">#212121</color>
+    <color name="colorTextSecondary">#727272</color>
+    <color name="colorTextIcon">#FFFFFF</color>
     <color name="black_overlay">#66000000</color>
+
+    <color name="color1stWeekBackground">#039BE5</color>
+    <color name="color2ndWeekBackground">#FB8C00</color>
+    <color name="color3rdWeekBackground">#00ACC1</color>
+    <color name="color4thWeekBackground">#C0CA33</color>
+    <color name="color5thWeekBackground">#5E35B1</color>
+    <color name="color6thWeekBackground">#F4511E</color>
+    <color name="color7thWeekBackground">#FDD835</color>
 </resources>
