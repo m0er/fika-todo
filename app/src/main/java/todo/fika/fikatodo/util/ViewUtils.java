@@ -8,7 +8,7 @@ import android.util.TypedValue;
  */
 public class ViewUtils {
 
-    public static int getPixelByDp(Resources resources, int dp) {
+    public static int pixelByDp(Resources resources, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
     }
 }
