@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <!-- this view reveals when swipe right -->
+    <RelativeLayout
+        android:id="@+id/revealRight"
+        android:tag="reveal-right"
+        android:background="@color/colorMonday"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/default_gap"
+            android:layout_centerVertical="true"
+            android:textColor="@color/colorTextWhite"
+            android:text="COMPLETE"/>
+
+    </RelativeLayout>
+
+    <!-- this view reveals when swipe left -->
+    <RelativeLayout
+        android:id="@+id/revealLeft"
+        android:tag="reveal-left"
+        android:background="?attr/colorPrimary"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/default_gap"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/colorTextRed"
+            android:text="DELETE"/>
+
+    </RelativeLayout>
+
+    <!-- this is the item front view -->
+    <RelativeLayout
+        android:tag="front"
+        android:background="@color/colorItemBackground"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="@dimen/item_padding">
+
+        <TextView
+            android:id="@+id/todoContent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="2"
+            android:ellipsize="end"
+            style="@style/TextAppearance.AppCompat.Body2"
+            tools:text="못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며"/>
+
+    </RelativeLayout>
+
+
+    <!-- just a divider -->
+    <View android:background="@color/colorDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+</FrameLayout>

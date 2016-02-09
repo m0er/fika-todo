@@ -20,28 +20,31 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class DateTimeTest extends AndroidTestCase {
 
+    /**
+     * 타임존 설정을 해도 n주차가 맞지 않음.
+     */
     public void testDateTime() {
-        DateTime dateTime = DateTime.now(TimeZone.getDefault());
+        DateTime dateTime = DateTime.now(TimeZone.getTimeZone("Asia/Seoul"));
         DateTime startOfMonth = dateTime.getStartOfMonth();
-        assertThat(DateTime.forDateOnly(2016, 1, 2).getWeekIndex(startOfMonth), is(1));
-        assertThat(DateTime.forDateOnly(2016, 1, 3).getWeekIndex(startOfMonth), is(1));
-        assertThat(DateTime.forDateOnly(2016, 1, 30).getWeekIndex(startOfMonth), is(5));
-        assertThat(DateTime.forDateOnly(2016, 1, 31).getWeekIndex(startOfMonth), is(5));
+        assertThat(DateTime.forDateOnly(2016, 2, 1).getWeekIndex(startOfMonth), is(1));
+        assertThat(DateTime.forDateOnly(2016, 2, 7).getWeekIndex(startOfMonth), is(1));
+        assertThat(DateTime.forDateOnly(2016, 2, 28).getWeekIndex(startOfMonth), is(4));
+        assertThat(DateTime.forDateOnly(2016, 2, 29).getWeekIndex(startOfMonth), is(5));
     }
 
     public void testJavaCalendar() {
         Calendar calendar = Calendar.getInstance();
 
-        calendar.set(2016, Calendar.JANUARY, 2);
+        calendar.set(2016, Calendar.FEBRUARY, 1);
         assertThat(calendar.get(Calendar.WEEK_OF_MONTH), is(1));
 
-        calendar.set(Calendar.DAY_OF_MONTH, 3);
+        calendar.set(Calendar.DAY_OF_MONTH, 7);
         assertThat(calendar.get(Calendar.WEEK_OF_MONTH), is(2));
 
-        calendar.set(Calendar.DAY_OF_MONTH, 30);
+        calendar.set(Calendar.DAY_OF_MONTH, 28);
         assertThat(calendar.get(Calendar.WEEK_OF_MONTH), is(5));
 
-        calendar.set(Calendar.DAY_OF_MONTH, 31);
-        assertThat(calendar.get(Calendar.WEEK_OF_MONTH), is(6));
+        calendar.set(Calendar.DAY_OF_MONTH, 29);
+        assertThat(calendar.get(Calendar.WEEK_OF_MONTH), is(5));
     }
 }

@@ -29,3 +29,6 @@ proguard/
 # Android studio
 .idea/
 *.iml
+
+# Project concept files
+concept/

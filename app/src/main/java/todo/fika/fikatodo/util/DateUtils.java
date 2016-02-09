@@ -1,5 +1,6 @@
 package todo.fika.fikatodo.util;
 
+import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -9,6 +10,7 @@ import hirondelle.date4j.DateTime;
  * Created by AidenChoi on 2016. 1. 24..
  */
 public class DateUtils {
+    private static final TimeZone DEFAULT_TIMEZONE = TimeZone.getTimeZone(Const.DEFAULT_TIME_ZONE);
 
     public static String getOrdinalString(int number) {
         String[] suffixes = new String[] { "th", "st", "nd", "rd", "th", "th", "th", "th", "th", "th" };
@@ -24,6 +26,14 @@ public class DateUtils {
 
     public static String getTitle() {
         DateTime now = DateTime.now(TimeZone.getDefault());
-        return now.format("YYYY MMM", Locale.ENGLISH);
+        return now.format("MMMM", Locale.ENGLISH);
+    }
+
+    public static int getWeekOfMonth() {
+        return Calendar.getInstance(DEFAULT_TIMEZONE).get(Calendar.WEEK_OF_MONTH);
+    }
+
+    public static int getWeekDay() {
+        return Calendar.getInstance(DEFAULT_TIMEZONE).get(Calendar.DAY_OF_WEEK);
     }
 }

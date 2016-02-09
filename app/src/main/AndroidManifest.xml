@@ -16,15 +16,16 @@
             android:theme="@style/FullscreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".month.FikaMonthActivity_"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <!-- For reference -->
         <activity
-            android:name=".LauncherActivity_"
-            android:label="@string/title_activity_launcher"
+            android:name=".month.FikaMonthActivity_"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".week.FikaWeekActivity_"
+            android:label="@string/title_activity_week"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>
 

@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#795548</color>
+    <color name="colorPrimary">#2F3649</color>
     <color name="colorPrimaryDark">#5D4037</color>
     <color name="colorAccent">#FF9800</color>
     <color name="lightColorPrimary">#D7CCC8</color>
-    <color name="colorDivider">#B6B6B6</color>
-    <color name="colorTextPrimary">#212121</color>
-    <color name="colorTextSecondary">#727272</color>
-    <color name="colorTextIcon">#FFFFFF</color>
+    <color name="colorDivider">#EFEFEF</color>
+    <color name="colorTextPrimary">#33333A</color>
+    <color name="colorTextSecondary">#979AA4</color>
+    <color name="colorTextWhite">#FFFFFF</color>
+    <color name="colorTextRed">#F4511E</color>
+    <color name="colorTextIcon">#979AA4</color>
     <color name="black_overlay">#66000000</color>
 
-    <color name="color1stWeekBackground">#039BE5</color>
+    <color name="colorItemBackground">#FFFFFF</color>
+
+    <color name="colorMonday">#2963FF</color>
+    <color name="colorTuesday">#FB8C00</color>
+    <color name="colorWednesday">#00ACC1</color>
+    <color name="colorThursday">#C0CA33</color>
+    <color name="colorFriday">#5E35B1</color>
+    <color name="colorSaturday">#F4511E</color>
+    <color name="colorSunday">#FDD835</color>
+
+    <color name="color1stWeekBackground">#2963FF</color>
     <color name="color2ndWeekBackground">#FB8C00</color>
     <color name="color3rdWeekBackground">#00ACC1</color>
     <color name="color4thWeekBackground">#C0CA33</color>

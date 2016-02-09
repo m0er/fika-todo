@@ -2,6 +2,7 @@ package todo.fika.fikatodo;
 
 import android.annotation.SuppressLint;
 import android.os.Handler;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +13,7 @@ import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
 import todo.fika.fikatodo.month.FikaMonthActivity_;
+import todo.fika.fikatodo.week.FikaWeekActivity_;
 
 @EActivity(R.layout.activity_fika_launcher)
 public class FikaLauncherActivity extends AppCompatActivity {
@@ -65,7 +67,8 @@ public class FikaLauncherActivity extends AppCompatActivity {
 
     @UiThread(delay = 1000)
     void launch() {
-        FikaMonthActivity_.intent(this)
+        FikaWeekActivity_.intent(this)
+                .withOptions(ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out).toBundle())
                 .start();
         finish();
     }
@@ -79,7 +82,6 @@ public class FikaLauncherActivity extends AppCompatActivity {
         mControlsView.setVisibility(View.GONE);
 
         // Schedule a runnable to remove the status and navigation bar after a delay
-        mHideHandler.removeCallbacks(mShowPart2Runnable);
         mHideHandler.postDelayed(mHidePart2Runnable, UI_ANIMATION_DELAY);
     }
 }
