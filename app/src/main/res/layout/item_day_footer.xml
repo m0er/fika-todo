@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/todo_footer_background">
+
+    <EditText
+        android:id="@+id/typeNewTodo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/item_padding"
+        android:background="@null"
+        android:hint="오늘 할 일을 입력해 보세요.."
+        style="@style/TextAppearance.AppCompat.Subhead"/>
+
+    <!-- just a divider -->
+    <View android:background="@color/colorDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"/>
+
+</FrameLayout>

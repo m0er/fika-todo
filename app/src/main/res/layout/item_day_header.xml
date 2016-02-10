@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/item_padding"
+    android:background="@drawable/todo_header_background">
+
+    <com.github.pavlospt.CircleView
+        android:id="@+id/day"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="@dimen/item_padding"
+        app:titleText="11"
+        app:titleSize="24dp"
+        app:titleColor="@color/colorTextWhite"
+        app:strokeWidthSize="0" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_toRightOf="@+id/day"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/dayTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/item_padding"
+            android:textStyle="bold"
+            style="@style/TextAppearance.AppCompat.Subhead"
+            tools:text="MONDAY"/>
+
+        <TextView
+            android:id="@+id/todoProgress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/dayTitle"
+            android:layout_marginLeft="@dimen/item_padding"
+            android:textColor="@color/colorTextSecondary"
+            style="@style/TextAppearance.AppCompat.Body1"
+            tools:text="87% COMPLETED"/>
+
+    </LinearLayout>
+
+    <!-- just a divider -->
+    <View android:background="@color/colorDivider"
+        android:layout_width="match_parent"
+        android:layout_below="@+id/day"
+        android:layout_marginTop="@dimen/default_gap"
+        android:layout_height="0.5dp"/>
+
+</RelativeLayout>

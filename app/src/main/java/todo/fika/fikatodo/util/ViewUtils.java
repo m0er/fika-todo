@@ -2,6 +2,7 @@ package todo.fika.fikatodo.util;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.annotation.ColorRes;
 import android.util.TypedValue;
 
 import java.lang.ref.WeakReference;
@@ -20,6 +21,10 @@ public class ViewUtils {
 
     public static int pixelByDp(Resources resources, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
+    }
+
+    public static int getColor(@ColorRes int colorId) {
+        return context.getResources().getColor(colorId);
     }
 
     /**

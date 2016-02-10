@@ -45,9 +45,12 @@
     <!-- this is the item front view -->
     <RelativeLayout
         android:tag="front"
-        android:background="@color/colorItemBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        android:background="@color/colorItemBackground"
         android:padding="@dimen/item_padding">
 
         <TextView
@@ -60,7 +63,6 @@
             tools:text="못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며"/>
 
     </RelativeLayout>
-
 
     <!-- just a divider -->
     <View android:background="@color/colorDivider"

@@ -17,6 +17,11 @@ public class Logger {
     }
 
     public void d(String formatter, Object... objs) {
+        if (objs == null) {
+            d("null");
+            return;
+        }
+
         Log.d(tag, String.format(formatter, objs));
     }
 

@@ -84,5 +84,5 @@ dependencies {
     compile ('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.6@aar'){
         transitive=true
     }
-    compile 'co.dift.ui.swipetoaction:library:1.1'
+    compile 'com.github.pavlospt:circleview:1.2'
 }

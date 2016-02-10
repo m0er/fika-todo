@@ -36,4 +36,13 @@ public class DateUtils {
     public static int getWeekDay() {
         return Calendar.getInstance(DEFAULT_TIMEZONE).get(Calendar.DAY_OF_WEEK);
     }
+
+    public static int getDay() {
+        return Calendar.getInstance(DEFAULT_TIMEZONE).get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static String getDayTitle() {
+        DateTime now = DateTime.now(TimeZone.getDefault());
+        return now.format("WWWW", Locale.ENGLISH);
+    }
 }

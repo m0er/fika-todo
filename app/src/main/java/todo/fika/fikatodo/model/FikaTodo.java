@@ -9,6 +9,8 @@ import lombok.Data;
  */
 @Data
 public class FikaTodo {
+    private int id;
     private Date createdAt;
     private String content;
+    private boolean checked;
 }

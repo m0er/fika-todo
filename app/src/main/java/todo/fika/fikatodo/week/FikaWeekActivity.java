@@ -1,18 +1,16 @@
 package todo.fika.fikatodo.week;
 
-import android.content.res.ColorStateList;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
@@ -25,7 +23,6 @@ import todo.fika.fikatodo.R;
 import todo.fika.fikatodo.model.FikaTodo;
 import todo.fika.fikatodo.util.DateUtils;
 import todo.fika.fikatodo.util.Logger;
-import todo.fika.fikatodo.util.ViewUtils;
 
 @EActivity(R.layout.activity_fika_week)
 public class FikaWeekActivity extends AppCompatActivity {
@@ -40,12 +37,14 @@ public class FikaWeekActivity extends AppCompatActivity {
     @InstanceState
     int weekDay;
 
+    private List<FikaTodo> todos;
     private SwipeToAction swipeToAction;
 
     @AfterInject
     void afterInject() {
         weekDay = DateUtils.getWeekDay();
         logger.d("weekDay: %d", weekDay);
+        todos = getDummyData();
     }
 
     @AfterViews
@@ -61,45 +60,49 @@ public class FikaWeekActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new FikaTodoAdapter(getDummyData()));
+        recyclerView.setAdapter(new FikaTodoAdapter(weekDay, todos));
 
-        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener() {
+        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener<FikaTodo>() {
             @Override
-            public boolean swipeLeft(Object itemData) {
+            public boolean swipeLeft(FikaTodo itemData) {
+                int pos = todos.indexOf(itemData);
+                todos.remove(itemData);
+                recyclerView.getAdapter().notifyItemRemoved(pos + 1);
+                recyclerView.getAdapter().notifyItemChanged(0);
                 return true;
             }
 
             @Override
-            public boolean swipeRight(Object itemData) {
+            public boolean swipeRight(FikaTodo itemData) {
+                itemData.setChecked(true);
+                int pos = todos.indexOf(itemData);
+                recyclerView.getAdapter().notifyItemChanged(pos + 1);
+                recyclerView.getAdapter().notifyItemChanged(0);
                 return true;
             }
 
             @Override
-            public void onClick(Object itemData) {
-
+            public void onClick(FikaTodo itemData) {
+                Snackbar.make(recyclerView, "Click! " + (itemData == null ? "null" : itemData.toString()), Snackbar.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onLongClick(Object itemData) {
-
+            public void onLongClick(FikaTodo itemData) {
+                Snackbar.make(recyclerView, "LongClick! " + (itemData == null ? "null" : itemData.toString()), Snackbar.LENGTH_SHORT).show();
             }
         });
+    }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setBackgroundTintList(ColorStateList.valueOf(ViewUtils.colorByWeekDay(weekDay)));
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+    @Click
+    void toolbarSetting() {
+        Snackbar.make(recyclerView, "Setting!", Snackbar.LENGTH_SHORT).show();
     }
 
     private List<FikaTodo> getDummyData() {
         List<FikaTodo> todos = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             FikaTodo todo = new FikaTodo();
+            todo.setId(i);
             todo.setContent("못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며");
             todos.add(todo);
         }
