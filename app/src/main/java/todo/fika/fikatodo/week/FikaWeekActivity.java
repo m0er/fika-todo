@@ -29,9 +29,6 @@ public class FikaWeekActivity extends AppCompatActivity {
     final Logger logger = Logger.Factory.getLogger(getClass());
 
     @ViewById
-    TextView toolbarTitle;
-
-    @ViewById
     RecyclerView recyclerView;
 
     @InstanceState
@@ -55,8 +52,6 @@ public class FikaWeekActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayShowCustomEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
-
-        toolbarTitle.setText(String.format("%s %s", DateUtils.getTitle().toUpperCase(), DateUtils.getOrdinalString(DateUtils.getWeekOfMonth()).toUpperCase()));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
@@ -94,7 +89,7 @@ public class FikaWeekActivity extends AppCompatActivity {
     }
 
     @Click
-    void toolbarSetting() {
+    void toolbarMenu() {
         Snackbar.make(recyclerView, "Setting!", Snackbar.LENGTH_SHORT).show();
     }
 

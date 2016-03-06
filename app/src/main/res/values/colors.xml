@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#2F3649</color>
-    <color name="colorPrimaryDark">#5D4037</color>
+    <color name="colorPrimary">#536dfe</color>
+    <color name="colorPrimaryDark">#2F3649</color>
     <color name="colorAccent">#FF9800</color>
     <color name="lightColorPrimary">#D7CCC8</color>
-    <color name="colorDivider">#EFEFEF</color>
-    <color name="colorTextPrimary">#33333A</color>
-    <color name="colorTextSecondary">#979AA4</color>
+    <color name="colorDivider">#eeeeee</color>
+    <color name="colorDividerDark">#33ffffff</color>
+    <color name="colorTextPrimary">#262626</color>
+    <color name="colorTextSecondary">#bdbdbd</color>
     <color name="colorTextWhite">#FFFFFF</color>
-    <color name="colorTextRed">#F4511E</color>
-    <color name="colorTextIcon">#979AA4</color>
+    <color name="colorTextRed">#f44336</color>
+    <color name="colorTextCompleted">#e0e0e0</color>
+    <color name="colorTextDimmed">#99ffffff</color>
+
     <color name="black_overlay">#66000000</color>
 
     <color name="colorItemBackground">#FFFFFF</color>
 
-    <color name="colorMonday">#2963FF</color>
-    <color name="colorTuesday">#FB8C00</color>
-    <color name="colorWednesday">#00ACC1</color>
-    <color name="colorThursday">#C0CA33</color>
-    <color name="colorFriday">#5E35B1</color>
-    <color name="colorSaturday">#F4511E</color>
-    <color name="colorSunday">#FDD835</color>
+    <color name="colorMonday">#536dfe</color>
+    <color name="colorTuesday">#d500f9</color>
+    <color name="colorWednesday">#4dd0e1</color>
+    <color name="colorThursday">#ff9100</color>
+    <color name="colorFriday">#9ccc65</color>
+    <color name="colorSaturday">#40c4ff</color>
+    <color name="colorSunday">#ff5269</color>
 
-    <color name="color1stWeekBackground">#2963FF</color>
-    <color name="color2ndWeekBackground">#FB8C00</color>
-    <color name="color3rdWeekBackground">#00ACC1</color>
-    <color name="color4thWeekBackground">#C0CA33</color>
-    <color name="color5thWeekBackground">#5E35B1</color>
-    <color name="color6thWeekBackground">#F4511E</color>
-    <color name="color7thWeekBackground">#FDD835</color>
+    <color name="color1stWeekBackground">#536dfe</color>
+    <color name="color2ndWeekBackground">#d500f9</color>
+    <color name="color3rdWeekBackground">#4dd0e1</color>
+    <color name="color4thWeekBackground">#ff9100</color>
+    <color name="color5thWeekBackground">#9ccc65</color>
+    <color name="color6thWeekBackground">#40c4ff</color>
+    <color name="color7thWeekBackground">#ff5269</color>
 </resources>

@@ -16,36 +16,44 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
+            android:background="?attr/colorPrimaryDark"
             app:contentInsetLeft="0dp"
             app:contentInsetStart="0dp"
             app:popupTheme="@style/AppTheme.PopupOverlay">
 
-            <FrameLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize">
 
                 <TextView
                     android:id="@+id/toolbarTitle"
-                    android:orientation="horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center_vertical"
-                    android:textColor="#ffffff"
-                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
-                    tools:text="FEBRARY 1ST"/>
-
-                <ImageButton
-                    android:id="@+id/toolbarSetting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/default_gap"
-                    android:layout_gravity="end|center_vertical"
-                    android:src="@drawable/ic_settings_white_24dp"
-                    style="@style/Widget.AppCompat.ActionButton" />
+                    android:layout_toRightOf="@+id/toolbarMenu"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="16dp"
+                    android:textColor="#ffffff"
+                    android:text="TODAY"
+                    style="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse" />
 
-            </FrameLayout>
+                <ImageButton
+                    android:id="@+id/toolbarMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/default_gap"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_menu_white_24dp" />
+
+                <!--<ImageButton-->
+                    <!--android:id="@+id/toolbarSetting"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:layout_marginRight="@dimen/default_gap"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:src="@drawable/ic_settings_white_24dp" />-->
+
+            </RelativeLayout>
 
         </android.support.v7.widget.Toolbar>
 

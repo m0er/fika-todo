@@ -9,13 +9,13 @@
 
     <com.github.pavlospt.CircleView
         android:id="@+id/day"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:layout_marginLeft="@dimen/item_padding"
         app:titleText="11"
         app:titleSize="24dp"
         app:titleColor="@color/colorTextWhite"
-        app:strokeWidthSize="0" />
+        app:strokeWidthSize="0"/>
 
     <LinearLayout
         android:layout_width="match_parent"
