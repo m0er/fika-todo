@@ -21,10 +21,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".month.FikaMonthActivity_"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".week.FikaWeekActivity_"
+            android:name=".today.FikaTodayActivity_"
             android:label="@string/title_activity_week"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

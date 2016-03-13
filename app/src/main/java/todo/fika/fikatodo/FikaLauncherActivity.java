@@ -12,8 +12,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.UiThread;
 import org.androidannotations.annotations.ViewById;
 
-import todo.fika.fikatodo.month.FikaMonthActivity_;
-import todo.fika.fikatodo.week.FikaWeekActivity_;
+import todo.fika.fikatodo.today.FikaTodayActivity_;
 
 @EActivity(R.layout.activity_fika_launcher)
 public class FikaLauncherActivity extends AppCompatActivity {
@@ -67,7 +66,7 @@ public class FikaLauncherActivity extends AppCompatActivity {
 
     @UiThread(delay = 1000)
     void launch() {
-        FikaWeekActivity_.intent(this)
+        FikaTodayActivity_.intent(this)
                 .withOptions(ActivityOptionsCompat.makeCustomAnimation(this, android.R.anim.fade_in, android.R.anim.fade_out).toBundle())
                 .start();
         finish();

@@ -1,16 +1,18 @@
-package todo.fika.fikatodo.week;
+package todo.fika.fikatodo.today;
 
+import android.content.res.Configuration;
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.ActionBar;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.TextView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
-import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
@@ -24,12 +26,20 @@ import todo.fika.fikatodo.model.FikaTodo;
 import todo.fika.fikatodo.util.DateUtils;
 import todo.fika.fikatodo.util.Logger;
 
-@EActivity(R.layout.activity_fika_week)
-public class FikaWeekActivity extends AppCompatActivity {
+@EActivity(R.layout.activity_fika_today)
+public class FikaTodayActivity extends AppCompatActivity {
     final Logger logger = Logger.Factory.getLogger(getClass());
 
     @ViewById
     RecyclerView recyclerView;
+
+    @ViewById
+    DrawerLayout drawerLayout;
+
+    @ViewById
+    RecyclerView drawerContent;
+
+    private ActionBarDrawerToggle drawerToggle;
 
     @InstanceState
     int weekDay;
@@ -47,15 +57,21 @@ public class FikaWeekActivity extends AppCompatActivity {
     @AfterViews
     void afterViews() {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setTitle("TODAY");
         setSupportActionBar(toolbar);
 
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayShowCustomEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.btn_first);
+
+        drawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.drawer_open, R.string.drawer_close) {
+            // 드로어 관련 리스너 등록.
+        };
+        drawerLayout.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new FikaTodoAdapter(weekDay, todos));
+        recyclerView.setAdapter(new FikaTodayAdapter(weekDay, todos));
 
         swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener<FikaTodo>() {
             @Override
@@ -88,11 +104,6 @@ public class FikaWeekActivity extends AppCompatActivity {
         });
     }
 
-    @Click
-    void toolbarMenu() {
-        Snackbar.make(recyclerView, "Setting!", Snackbar.LENGTH_SHORT).show();
-    }
-
     private List<FikaTodo> getDummyData() {
         List<FikaTodo> todos = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
@@ -105,4 +116,15 @@ public class FikaWeekActivity extends AppCompatActivity {
         return todos;
     }
 
+    @Override
+    public void onPostCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
+        super.onPostCreate(savedInstanceState, persistentState);
+        drawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        drawerToggle.onConfigurationChanged(newConfig);
+    }
 }

@@ -6,4 +6,5 @@
     <dimen name="item_height">60dp</dimen>
     <dimen name="item_padding">16dp</dimen>
     <dimen name="actionBarSize">28dp</dimen>
+    <dimen name="default_gap">16dp</dimen>
 </resources>

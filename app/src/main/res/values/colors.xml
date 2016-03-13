@@ -16,6 +16,7 @@
     <color name="black_overlay">#66000000</color>
 
     <color name="colorItemBackground">#FFFFFF</color>
+    <color name="colorTransparent">#00000000</color>
 
     <color name="colorMonday">#536dfe</color>
     <color name="colorTuesday">#d500f9</color>
@@ -25,11 +26,4 @@
     <color name="colorSaturday">#40c4ff</color>
     <color name="colorSunday">#ff5269</color>
 
-    <color name="color1stWeekBackground">#536dfe</color>
-    <color name="color2ndWeekBackground">#d500f9</color>
-    <color name="color3rdWeekBackground">#4dd0e1</color>
-    <color name="color4thWeekBackground">#ff9100</color>
-    <color name="color5thWeekBackground">#9ccc65</color>
-    <color name="color6thWeekBackground">#40c4ff</color>
-    <color name="color7thWeekBackground">#ff5269</color>
 </resources>

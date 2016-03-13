@@ -3,15 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="68dp"
+    android:paddingLeft="@dimen/item_padding"
     android:paddingTop="@dimen/item_padding"
+    android:paddingBottom="@dimen/item_padding"
     android:background="@drawable/todo_header_background">
 
     <com.github.pavlospt.CircleView
         android:id="@+id/day"
         android:layout_width="36dp"
         android:layout_height="36dp"
-        android:layout_marginLeft="@dimen/item_padding"
+        android:layout_centerVertical="true"
         app:titleText="11"
         app:titleSize="24dp"
         app:titleColor="@color/colorTextWhite"
@@ -19,8 +21,11 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="36dp"
         android:layout_toRightOf="@+id/day"
+        android:layout_marginLeft="12.4dp"
+        android:layout_toLeftOf="@+id/addTodo"
+        android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:orientation="vertical">
 
@@ -28,28 +33,38 @@
             android:id="@+id/dayTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item_padding"
             android:textStyle="bold"
+            android:textSize="15dp"
+            android:textAllCaps="true"
             style="@style/TextAppearance.AppCompat.Subhead"
-            tools:text="MONDAY"/>
+            tools:text="monday"/>
 
         <TextView
-            android:id="@+id/todoProgress"
+            android:id="@+id/todayText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/dayTitle"
-            android:layout_marginLeft="@dimen/item_padding"
+            android:textSize="11dp"
             android:textColor="@color/colorTextSecondary"
+            android:textAllCaps="true"
             style="@style/TextAppearance.AppCompat.Body1"
-            tools:text="87% COMPLETED"/>
+            tools:text="7, march 2016"/>
 
     </LinearLayout>
 
-    <!-- just a divider -->
-    <View android:background="@color/colorDivider"
-        android:layout_width="match_parent"
-        android:layout_below="@+id/day"
-        android:layout_marginTop="@dimen/default_gap"
-        android:layout_height="0.5dp"/>
+    <ImageButton
+        android:id="@+id/addTodo"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="@dimen/item_padding"
+        android:layout_alignParentRight="true"
+        android:background="@color/colorTransparent"
+        android:src="@drawable/btn_add"/>
+
+    <!--<View android:background="@color/colorDivider"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_below="@+id/day"-->
+        <!--android:layout_marginTop="@dimen/default_gap"-->
+        <!--android:layout_height="0.5dp"/>-->
 
 </RelativeLayout>

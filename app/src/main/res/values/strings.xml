@@ -7,4 +7,7 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="title_activity_week">WeekActivity</string>
     <string name="title_activity_ref">RefActivity</string>
+
+    <string name="drawer_open">Menu opened</string>
+    <string name="drawer_close">Menu closed</string>
 </resources>

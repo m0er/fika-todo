@@ -45,4 +45,9 @@ public class DateUtils {
         DateTime now = DateTime.now(TimeZone.getDefault());
         return now.format("WWWW", Locale.ENGLISH);
     }
+
+    public static String getTodayDateTime() {
+        DateTime now = DateTime.now(TimeZone.getDefault());
+        return now.format("D, MMMM YYYY", Locale.ENGLISH);
+    }
 }

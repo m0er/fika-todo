@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <!-- this view reveals when swipe right -->
-    <RelativeLayout
+    <android.support.percent.PercentRelativeLayout
         android:id="@+id/revealRight"
         android:tag="reveal-right"
         android:background="@color/colorMonday"
@@ -16,31 +16,33 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/default_gap"
             android:layout_centerVertical="true"
+            app:layout_marginLeftPercent="36%"
             android:textColor="@color/colorTextWhite"
-            android:text="COMPLETE"/>
+            android:textAllCaps="true"
+            android:text="complete"/>
 
-    </RelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
 
     <!-- this view reveals when swipe left -->
-    <RelativeLayout
+    <android.support.percent.PercentRelativeLayout
         android:id="@+id/revealLeft"
         android:tag="reveal-left"
-        android:background="?attr/colorPrimary"
+        android:background="?attr/colorPrimaryDark"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="@dimen/default_gap"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            app:layout_marginRightPercent="36%"
             android:textColor="@color/colorTextRed"
-            android:text="DELETE"/>
+            android:textAllCaps="true"
+            android:text="delete"/>
 
-    </RelativeLayout>
+    </android.support.percent.PercentRelativeLayout>
 
     <!-- this is the item front view -->
     <RelativeLayout
@@ -59,6 +61,7 @@
             android:layout_height="wrap_content"
             android:maxLines="2"
             android:ellipsize="end"
+            android:textSize="13dp"
             style="@style/TextAppearance.AppCompat.Body2"
             tools:text="못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며"/>
 

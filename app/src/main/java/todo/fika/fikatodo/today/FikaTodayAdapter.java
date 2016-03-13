@@ -1,5 +1,7 @@
-package todo.fika.fikatodo.week;
+package todo.fika.fikatodo.today;
 
+import android.graphics.Paint;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,12 +27,12 @@ import static todo.fika.fikatodo.util.Const.TYPE_TODO;
 /**
  * Created by AidenChoi on 2016. 2. 9..
  */
-public class FikaTodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FikaTodayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private final Logger logger = Logger.Factory.getLogger(getClass());
     private final int weekDay;
     private List<FikaTodo> todos;
 
-    public FikaTodoAdapter(int weekDay, List<FikaTodo> todos) {
+    public FikaTodayAdapter(int weekDay, List<FikaTodo> todos) {
         this.weekDay = weekDay;
         this.todos = todos;
     }
@@ -52,7 +54,8 @@ public class FikaTodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private class FikaHeaderViewHolder extends RecyclerView.ViewHolder {
         CircleView day;
         TextView dayTitle;
-        TextView todoProgress;
+        TextView todayText;
+        View addTodo;
 
         public FikaHeaderViewHolder(View itemView) {
             super(itemView);
@@ -65,8 +68,9 @@ public class FikaTodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
             dayTitle = (TextView) itemView.findViewById(R.id.dayTitle);
             dayTitle.setTextColor(ViewUtils.colorByWeekDay(weekDay));
+            todayText = (TextView) itemView.findViewById(R.id.todayText);
 
-            todoProgress = (TextView) itemView.findViewById(R.id.todoProgress);
+            addTodo = itemView.findViewById(R.id.addTodo);
         }
     }
 
@@ -93,13 +97,19 @@ public class FikaTodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
         int viewType = getItemViewType(position);
         if (viewType == TYPE_HEADER) {
             FikaHeaderViewHolder viewHolder = (FikaHeaderViewHolder) holder;
             viewHolder.day.setTitleText(String.valueOf(DateUtils.getDay()));
             viewHolder.dayTitle.setText(DateUtils.getDayTitle().toUpperCase());
-            updateTodoProgress(viewHolder.todoProgress);
+            viewHolder.todayText.setText(DateUtils.getTodayDateTime());
+            viewHolder.addTodo.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Snackbar.make(holder.itemView, "Add Todo!", Snackbar.LENGTH_SHORT).show();
+                }
+            });
         } else if (viewType == TYPE_FOOTER) {
             FikaFooterViewHolder viewHolder = (FikaFooterViewHolder) holder;
         } else {
@@ -109,9 +119,11 @@ public class FikaTodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             viewHoler.todoContent.setText(todo.getContent());
 
             if (todo.isChecked()) {
-                viewHoler.todoContent.setTextColor(ViewUtils.getColor(R.color.colorTextSecondary));
+                viewHoler.todoContent.setTextColor(ViewUtils.getColor(R.color.colorTextCompleted));
+                viewHoler.todoContent.setPaintFlags(viewHoler.todoContent.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             } else {
                 viewHoler.todoContent.setTextColor(ViewUtils.getColor(R.color.colorTextPrimary));
+                viewHoler.todoContent.setPaintFlags(viewHoler.todoContent.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
             }
         }
     }
@@ -132,13 +144,4 @@ public class FikaTodoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return todos.size() + 2; // header and footer
     }
 
-    public void updateTodoProgress(TextView todoProgress) {
-        int checkedCount = 0;
-        for (FikaTodo todo : todos) {
-            if (todo.isChecked()) {
-                checkedCount++;
-            }
-        }
-        todoProgress.setText(String.valueOf((int) (checkedCount / (float) todos.size() * 100)) + "% COMPLETED");
-    }
 }
