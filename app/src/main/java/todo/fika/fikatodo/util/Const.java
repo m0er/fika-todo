@@ -8,4 +8,10 @@ public interface Const {
     int TYPE_HEADER = 0;
     int TYPE_TODO = 1;
     int TYPE_FOOTER = 2;
+
+    interface Animation {
+        int SHORT = 150;
+        int NORMAL = 300;
+        int LONG = 600;
+    }
 }

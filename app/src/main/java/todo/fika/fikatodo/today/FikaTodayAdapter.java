@@ -88,11 +88,11 @@ public class FikaTodayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         if (viewType == TYPE_HEADER) {
-            return new FikaHeaderViewHolder(inflater.inflate(R.layout.item_day_header, parent, false));
+            return new FikaHeaderViewHolder(inflater.inflate(R.layout.item_today_header, parent, false));
         } else if (viewType == TYPE_FOOTER) {
-            return new FikaFooterViewHolder(inflater.inflate(R.layout.item_day_footer, parent, false));
+            return new FikaFooterViewHolder(inflater.inflate(R.layout.item_today_footer, parent, false));
         } else {
-            return new FikaTodoViewHoler(inflater.inflate(R.layout.item_day_todo, parent, false));
+            return new FikaTodoViewHoler(inflater.inflate(R.layout.item_today_todo, parent, false));
         }
     }
 

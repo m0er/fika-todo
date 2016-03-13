@@ -3,7 +3,6 @@ package todo.fika.fikatodo.today;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,8 +22,10 @@ import java.util.List;
 import co.dift.ui.SwipeToAction;
 import todo.fika.fikatodo.R;
 import todo.fika.fikatodo.model.FikaTodo;
+import todo.fika.fikatodo.util.Const.Animation;
 import todo.fika.fikatodo.util.DateUtils;
 import todo.fika.fikatodo.util.Logger;
+import todo.fika.fikatodo.util.ViewUtils;
 
 @EActivity(R.layout.activity_fika_today)
 public class FikaTodayActivity extends AppCompatActivity {
@@ -73,7 +74,7 @@ public class FikaTodayActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setAdapter(new FikaTodayAdapter(weekDay, todos));
 
-        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SwipeListener<FikaTodo>() {
+        swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SimpleSwipeListener<FikaTodo>() {
             @Override
             public boolean swipeLeft(FikaTodo itemData) {
                 int pos = todos.indexOf(itemData);
@@ -91,17 +92,10 @@ public class FikaTodayActivity extends AppCompatActivity {
                 recyclerView.getAdapter().notifyItemChanged(0);
                 return true;
             }
-
-            @Override
-            public void onClick(FikaTodo itemData) {
-                Snackbar.make(recyclerView, "Click! " + (itemData == null ? "null" : itemData.toString()), Snackbar.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onLongClick(FikaTodo itemData) {
-                Snackbar.make(recyclerView, "LongClick! " + (itemData == null ? "null" : itemData.toString()), Snackbar.LENGTH_SHORT).show();
-            }
         });
+        swipeToAction.setResetAnimationDuration(Animation.SHORT);
+        swipeToAction.setSwipeThresholdWidthRatio(3);
+        swipeToAction.setMaxSwipeXPosition(ViewUtils.dpToPx(getResources(), 180));
     }
 
     private List<FikaTodo> getDummyData() {

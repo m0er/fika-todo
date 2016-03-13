@@ -19,7 +19,7 @@ public class ViewUtils {
         ViewUtils.context = context;
     }
 
-    public static int pixelByDp(Resources resources, int dp) {
+    public static int dpToPx(Resources resources, int dp) {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp, resources.getDisplayMetrics());
     }
 

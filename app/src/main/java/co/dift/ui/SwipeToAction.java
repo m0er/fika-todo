@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import java.util.Date;
 import java.util.HashSet;
@@ -38,7 +39,15 @@ import todo.fika.fikatodo.util.Logger;
 public class SwipeToAction {
     private static final int SWIPE_ANIMATION_DURATION = 300;
     private static final int RESET_ANIMATION_DURATION = 500;
+
+    /**
+     * 스와이프 시작 할 때까지의 이동거리.
+     */
     private static final int REVEAL_THRESHOLD = 100;
+
+    /**
+     * 스와이프를 어느 정도 했을 때 전체 스와이프를 시킬지 여부 결정.
+     */
     private static final int SWIPE_THRESHOLD_WIDTH_RATIO = 5;
 
     private final Logger logger = Logger.Factory.getLogger(getClass());
@@ -62,6 +71,15 @@ public class SwipeToAction {
 
     private long downTime;
     private long upTime;
+
+    private Integer revealThreshold = REVEAL_THRESHOLD;
+    private Integer resetAnimationDuration = RESET_ANIMATION_DURATION;
+    private Integer swipeThresholdWidthRatio = SWIPE_THRESHOLD_WIDTH_RATIO;
+
+    /**
+     * 최대 스와이프 되는 거리.
+     */
+    private Integer maxSwipeXPosition;
 
     private Set<View> runningAnimationsOn = new HashSet<>();
     private Queue<Integer> swipeQueue = new LinkedList<>();
@@ -136,7 +154,15 @@ public class SwipeToAction {
                         if (!shouldMove(dx)) break;
 
                         // current position. moving only over x-axis
-                        frontViewLastX = frontViewX + dx + (dx > 0 ? -REVEAL_THRESHOLD : REVEAL_THRESHOLD);
+                        frontViewLastX = frontViewX + dx + (dx > 0 ? -getRevealThreshold() : getRevealThreshold());
+                        logger.d("dx: %f, frontViewLastX: %f", dx, frontViewLastX);
+                        if (maxSwipeXPosition != null) {
+                            if (frontViewLastX > 0 && frontViewLastX > maxSwipeXPosition) {
+                                frontViewLastX = maxSwipeXPosition;
+                            } else if (frontViewLastX <= -maxSwipeXPosition) {
+                                frontViewLastX = -maxSwipeXPosition;
+                            }
+                        }
                         frontView.setX(frontViewLastX);
 
                         if (frontViewLastX > 0) {
@@ -216,9 +242,9 @@ public class SwipeToAction {
         }
 
         if (dx > 0) {
-            return revealRightView != null && Math.abs(dx) > REVEAL_THRESHOLD;
+            return revealRightView != null && Math.abs(dx) > getRevealThreshold();
         } else {
-            return revealLeftView != null && Math.abs(dx) > REVEAL_THRESHOLD;
+            return revealLeftView != null && Math.abs(dx) > getRevealThreshold();
         }
     }
 
@@ -254,7 +280,7 @@ public class SwipeToAction {
 
         final View animated = touchedView;
         frontView.animate()
-                .setDuration(RESET_ANIMATION_DURATION)
+                .setDuration(getResetAnimationDuration())
                 .setInterpolator(new AccelerateDecelerateInterpolator())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
@@ -286,9 +312,9 @@ public class SwipeToAction {
             return;
         }
 
-        if (frontViewLastX > frontViewX + frontViewW / SWIPE_THRESHOLD_WIDTH_RATIO) {
+        if (frontViewLastX > frontViewX + frontViewW / getSwipeThresholdWidthRatio()) {
             swipeRight();
-        } else if (frontViewLastX < frontViewX - frontViewW / SWIPE_THRESHOLD_WIDTH_RATIO) {
+        } else if (frontViewLastX < frontViewX - frontViewW / getSwipeThresholdWidthRatio()) {
             swipeLeft();
         } else {
 //            float diffX = Math.abs(downX - upX);
@@ -354,7 +380,7 @@ public class SwipeToAction {
         final View animated = touchedView;
         frontView.animate()
                 .setDuration(SWIPE_ANIMATION_DURATION)
-                .setInterpolator(new AccelerateInterpolator())
+                .setInterpolator(new DecelerateInterpolator())
                 .setListener(new Animator.AnimatorListener() {
                     @Override
                     public void onAnimationStart(Animator animation) {
@@ -429,6 +455,37 @@ public class SwipeToAction {
         swipeRight();
     }
 
+    public void setRevealThreshold(Integer revealThreshold) {
+        this.revealThreshold = revealThreshold;
+    }
+
+    public int getRevealThreshold() {
+        return revealThreshold;
+    }
+
+    public Integer getResetAnimationDuration() {
+        return resetAnimationDuration;
+    }
+
+    public void setResetAnimationDuration(Integer resetAnimationDuration) {
+        this.resetAnimationDuration = resetAnimationDuration;
+    }
+
+    public Integer getSwipeThresholdWidthRatio() {
+        return swipeThresholdWidthRatio;
+    }
+
+    public void setSwipeThresholdWidthRatio(Integer swipeThresholdWidthRatio) {
+        this.swipeThresholdWidthRatio = swipeThresholdWidthRatio;
+    }
+
+    public Integer getMaxSwipeXPosition() {
+        return maxSwipeXPosition;
+    }
+
+    public void setMaxSwipeXPosition(Integer maxSwipeXPosition) {
+        this.maxSwipeXPosition = maxSwipeXPosition;
+    }
 
     /** Public interfaces & classes */
 
@@ -437,6 +494,27 @@ public class SwipeToAction {
         boolean swipeRight(T itemData);
         void onClick(T itemData);
         void onLongClick(T itemData);
+    }
+
+    public static abstract class SimpleSwipeListener<T extends Object> implements SwipeListener<T> {
+        @Override
+        public boolean swipeLeft(T itemData) {
+            return false;
+        }
+
+        @Override
+        public boolean swipeRight(T itemData) {
+            return false;
+        }
+
+        @Override
+        public void onClick(T itemData) {
+        }
+
+        @Override
+        public void onLongClick(T itemData) {
+
+        }
     }
 
     public interface IViewHolder<T extends Object> {

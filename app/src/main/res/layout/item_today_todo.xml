@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            app:layout_marginLeftPercent="36%"
+            app:layout_marginLeftPercent="30%"
             android:textColor="@color/colorTextWhite"
             android:textAllCaps="true"
             android:text="complete"/>
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-            app:layout_marginRightPercent="36%"
+            app:layout_marginRightPercent="30%"
             android:textColor="@color/colorTextRed"
             android:textAllCaps="true"
             android:text="delete"/>
@@ -53,7 +53,7 @@
         android:clickable="true"
         android:foreground="?android:attr/selectableItemBackground"
         android:background="@color/colorItemBackground"
-        android:padding="@dimen/item_padding">
+        android:padding="@dimen/default_gap">
 
         <TextView
             android:id="@+id/todoContent"
@@ -62,8 +62,9 @@
             android:maxLines="2"
             android:ellipsize="end"
             android:textSize="13dp"
+            android:gravity="center_vertical"
             style="@style/TextAppearance.AppCompat.Body2"
-            tools:text="못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며"/>
+            tools:text="못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며\n못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며"/>
 
     </RelativeLayout>
 
