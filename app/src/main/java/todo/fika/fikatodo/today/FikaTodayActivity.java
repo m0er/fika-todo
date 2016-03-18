@@ -124,25 +124,13 @@ public class FikaTodayActivity extends AppCompatActivity {
         dayTitle.setTextColor(ViewUtils.colorByWeekDay(weekDay));
 
         updateInCompleteTodoCount();
-        dayTitle.setText(DateUtils.getDayTitle().toUpperCase());
+        dayTitle.setText(DateUtils.getTodayTitle().toUpperCase());
         todayText.setText(DateUtils.getTodayDateTime());
     }
 
     @Click
     void goCompletedTodos() {
         Snackbar.make(rootView, "Go history view", Snackbar.LENGTH_SHORT).show();
-    }
-
-    private List<FikaTodo> getDummyData() {
-        List<FikaTodo> todos = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            FikaTodo todo = new FikaTodo();
-            todo.setId(i);
-            todo.setContent("못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며");
-            todos.add(todo);
-        }
-
-        return todos;
     }
 
     public void updateInCompleteTodoCount() {

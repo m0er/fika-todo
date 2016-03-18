@@ -5,7 +5,6 @@ package todo.fika.fikatodo.util;
  */
 public interface Const {
     String DEFAULT_TIME_ZONE = "Asia/Seoul";
-    int TYPE_HEADER = 0;
     int TYPE_TODO = 1;
     int TYPE_FOOTER = 2;
 
