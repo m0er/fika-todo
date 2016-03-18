@@ -1,23 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     android:background="@drawable/todo_footer_background">
 
-    <EditText
+    <todo.fika.fikatodo.view.FikaEditText
         android:id="@+id/typeNewTodo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/item_padding"
         android:background="@null"
+        android:maxLines="2"
+        android:minLines="2"
+        android:inputType="text"
+        android:imeOptions="actionDone"
+        android:textSize="13dp"
         android:hint="오늘 할 일을 입력해 보세요.."
-        style="@style/TextAppearance.AppCompat.Subhead"/>
+        style="@style/TextAppearance.AppCompat.Body2" />
 
     <!-- just a divider -->
     <View android:background="@color/colorDivider"
         android:layout_width="match_parent"
+        android:layout_gravity="bottom"
         android:layout_height="0.5dp"/>
 
 </FrameLayout>

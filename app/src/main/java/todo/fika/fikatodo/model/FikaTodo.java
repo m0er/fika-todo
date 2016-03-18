@@ -10,7 +10,8 @@ import lombok.Data;
 @Data
 public class FikaTodo {
     private int id;
-    private Date createdAt;
+    private Date createdDate;
+    private Date updatedDate;
     private String content;
-    private boolean checked;
+    private boolean completed;
 }

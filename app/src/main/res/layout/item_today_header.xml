@@ -2,17 +2,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/todoStatusWrapper"
     android:layout_width="match_parent"
     android:layout_height="68dp"
-    android:paddingLeft="@dimen/item_padding"
-    android:paddingTop="@dimen/item_padding"
-    android:paddingBottom="@dimen/item_padding"
     android:background="@drawable/todo_header_background">
 
     <com.github.pavlospt.CircleView
-        android:id="@+id/day"
+        android:id="@+id/todoCount"
         android:layout_width="36dp"
         android:layout_height="36dp"
+        android:layout_marginLeft="@dimen/default_gap"
         android:layout_centerVertical="true"
         app:titleText="11"
         app:titleSize="24dp"
@@ -22,9 +21,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="36dp"
-        android:layout_toRightOf="@+id/day"
+        android:layout_toRightOf="@+id/todoCount"
         android:layout_marginLeft="12.4dp"
-        android:layout_toLeftOf="@+id/addTodo"
+        android:layout_toLeftOf="@+id/goCompletedTodos"
         android:layout_centerVertical="true"
         android:gravity="center_vertical"
         android:orientation="vertical">
@@ -53,18 +52,18 @@
     </LinearLayout>
 
     <ImageButton
-        android:id="@+id/addTodo"
+        android:id="@+id/goCompletedTodos"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:padding="@dimen/item_padding"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:background="@color/colorTransparent"
-        android:src="@drawable/btn_add"/>
+        android:src="@drawable/ic_history_black_24dp"/>
 
-    <!--<View android:background="@color/colorDivider"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_below="@+id/day"-->
-        <!--android:layout_marginTop="@dimen/default_gap"-->
-        <!--android:layout_height="0.5dp"/>-->
+    <View android:background="@color/colorDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

@@ -63,6 +63,7 @@
             android:ellipsize="end"
             android:textSize="13dp"
             android:gravity="center_vertical"
+            android:background="@null"
             style="@style/TextAppearance.AppCompat.Body2"
             tools:text="못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며\n못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며"/>
 
@@ -71,6 +72,7 @@
     <!-- just a divider -->
     <View android:background="@color/colorDivider"
         android:layout_width="match_parent"
+        android:layout_gravity="bottom"
         android:layout_height="0.5dp"/>
 
 </FrameLayout>
