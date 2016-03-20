@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'realm-android'
+
 def AAVersion = '4.0.0'
 def supportVersion = '23.2.1'
 
@@ -9,6 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+        classpath "io.realm:realm-gradle-plugin:0.88.2"
     }
 }
 
