@@ -129,6 +129,7 @@ public class FikaTodayActivity extends BaseAppCompatActivity {
             @Override
             public void onClick(FikaTodo itemData) {
                 bus.post(new RequestEditTodo(itemData.getId()));
+                // 클릭 한 후에도 resetComplete() 콜백이 호출됨.
             }
 
             @Override

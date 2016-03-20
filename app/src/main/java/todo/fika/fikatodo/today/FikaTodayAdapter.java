@@ -3,7 +3,6 @@ package todo.fika.fikatodo.today;
 import android.graphics.Paint;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -132,6 +131,7 @@ public class FikaTodayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
                 viewHolder.editTodoContent.setText(todo.getContent());
                 viewHolder.editTodoContent.setVisibility(View.VISIBLE);
+                viewHolder.todoContent.setVisibility(View.GONE);
                 viewHolder.editTodoContent.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                     @Override
                     public boolean onEditorAction(final TextView v, int actionId, KeyEvent event) {
@@ -171,8 +171,6 @@ public class FikaTodayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
                 // 키보드 업.
                 viewHolder.editTodoContent.requestFocus();
                 ((FikaTodayActivity) viewHolder.editTodoContent.getContext()).showKeyboard();
-
-                viewHolder.todoContent.setVisibility(View.GONE);
             } else {
                 viewHolder.editTodoContent.setVisibility(View.GONE);
                 viewHolder.todoContent.setVisibility(View.VISIBLE);
@@ -203,7 +201,6 @@ public class FikaTodayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Subscribe
     public void requestEditTodo(RequestEditTodo requestEditTodo) {
         this.requestEditTodo = requestEditTodo;
-        notifyDataSetChanged();
     }
 
     @Override
