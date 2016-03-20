@@ -1,6 +1,5 @@
 package todo.fika.fikatodo.today;
 
-import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.PersistableBundle;
@@ -11,7 +10,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.TextView;
 
 import com.github.pavlospt.CircleView;
@@ -29,9 +27,11 @@ import hirondelle.date4j.DateTime;
 import io.realm.RealmResults;
 import todo.fika.fikatodo.R;
 import todo.fika.fikatodo.model.FikaTodo;
+import todo.fika.fikatodo.otto.RequestEditTodo;
 import todo.fika.fikatodo.realm.PrimaryKeyFactory;
 import todo.fika.fikatodo.util.Const.Animation;
 import todo.fika.fikatodo.util.DateUtils;
+import todo.fika.fikatodo.util.FikaCallback;
 import todo.fika.fikatodo.util.ViewUtils;
 import todo.fika.fikatodo.view.BaseAppCompatActivity;
 
@@ -96,35 +96,44 @@ public class FikaTodayActivity extends BaseAppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new FikaTodayAdapter(primaryKeyFactory, getTodayTodos()));
+        recyclerView.setAdapter(new FikaTodayAdapter(bus, primaryKeyFactory, transactionHelper, getTodayTodos()));
 
         swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SimpleSwipeListener<FikaTodo>() {
             @Override
             public boolean swipeLeft(FikaTodo itemData) {
                 FikaTodo target = realm.where(FikaTodo.class).equalTo("id", itemData.getId()).findFirst();
                 if (target != null) {
-                    realm.beginTransaction();
-                    target.removeFromRealm();
-                    realm.commitTransaction();
+                    transactionHelper.remove(target);
                 }
 
-                recyclerView.getAdapter().notifyDataSetChanged();
                 updateInCompleteTodoCount();
                 return true;
             }
 
             @Override
             public boolean swipeRight(FikaTodo itemData) {
-                FikaTodo target = realm.where(FikaTodo.class).equalTo("id", itemData.getId()).findFirst();
+                final FikaTodo target = realm.where(FikaTodo.class).equalTo("id", itemData.getId()).findFirst();
                 if (target != null) {
-                    realm.beginTransaction();
-                    target.toggleCompleted();
-                    realm.commitTransaction();
+                    transactionHelper.transaction(new FikaCallback() {
+                        @Override
+                        public void callback() {
+                            target.toggleCompleted();
+                        }
+                    });
                 }
 
-                recyclerView.getAdapter().notifyDataSetChanged();
                 updateInCompleteTodoCount();
                 return true;
+            }
+
+            @Override
+            public void onClick(FikaTodo itemData) {
+                bus.post(new RequestEditTodo(itemData.getId()));
+            }
+
+            @Override
+            public void resetComplete() {
+                recyclerView.getAdapter().notifyDataSetChanged();
             }
         });
         swipeToAction.setResetAnimationDuration(Animation.SHORT);
@@ -176,15 +185,4 @@ public class FikaTodayActivity extends BaseAppCompatActivity {
         drawerToggle.onConfigurationChanged(newConfig);
     }
 
-    /**
-     * @see http://stackoverflow.com/questions/1109022/close-hide-the-android-soft-keyboard
-     */
-    public void hideKeyboard() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            view.clearFocus();
-            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
-    }
 }

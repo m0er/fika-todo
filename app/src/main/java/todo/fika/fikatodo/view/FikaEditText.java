@@ -7,10 +7,16 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.EditText;
 
+import lombok.Setter;
+import todo.fika.fikatodo.util.FikaCallback;
+
 /**
  * Created by AidenChoi on 2016. 3. 18..
  */
 public class FikaEditText extends EditText {
+
+    @Setter
+    private FikaCallback onKeyboardHideCallback;
 
     public FikaEditText(Context context) {
         super(context);
@@ -29,18 +35,9 @@ public class FikaEditText extends EditText {
      */
     @Override
     public InputConnection onCreateInputConnection(EditorInfo outAttrs) {
-        InputConnection connection = super.onCreateInputConnection(outAttrs);
-        int imeActions = outAttrs.imeOptions & EditorInfo.IME_MASK_ACTION;
-        if ((imeActions & EditorInfo.IME_ACTION_DONE) != 0) {
-            // clear the existing action
-            outAttrs.imeOptions ^= imeActions;
-            // set the DONE action
-            outAttrs.imeOptions |= EditorInfo.IME_ACTION_DONE;
-        }
-        if ((outAttrs.imeOptions & EditorInfo.IME_FLAG_NO_ENTER_ACTION) != 0) {
-            outAttrs.imeOptions &= ~EditorInfo.IME_FLAG_NO_ENTER_ACTION;
-        }
-        return connection;
+        InputConnection conn = super.onCreateInputConnection(outAttrs);
+        outAttrs.imeOptions &= ~EditorInfo.IME_FLAG_NO_ENTER_ACTION;
+        return conn;
     }
 
     /**
@@ -50,6 +47,9 @@ public class FikaEditText extends EditText {
     public boolean onKeyPreIme(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_UP) {
             clearFocus();
+            if (onKeyboardHideCallback != null) {
+                onKeyboardHideCallback.callback();
+            }
             return false;
         }
         return super.dispatchKeyEvent(event);

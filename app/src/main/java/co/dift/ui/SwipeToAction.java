@@ -155,7 +155,7 @@ public class SwipeToAction {
 
                         // current position. moving only over x-axis
                         frontViewLastX = frontViewX + dx + (dx > 0 ? -getRevealThreshold() : getRevealThreshold());
-                        logger.d("dx: %f, frontViewLastX: %f", dx, frontViewLastX);
+//                        logger.d("dx: %f, frontViewLastX: %f", dx, frontViewLastX);
                         if (maxSwipeXPosition != null) {
                             if (frontViewLastX > 0 && frontViewLastX > maxSwipeXPosition) {
                                 frontViewLastX = maxSwipeXPosition;
@@ -291,8 +291,8 @@ public class SwipeToAction {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         runningAnimationsOn.remove(animated);
-                        swipeListener.completeReset();
                         checkQueue();
+                        swipeListener.resetComplete();
                     }
 
                     @Override
@@ -495,7 +495,7 @@ public class SwipeToAction {
         boolean swipeRight(T itemData);
         void onClick(T itemData);
         void onLongClick(T itemData);
-        void completeReset();
+        void resetComplete();
     }
 
     public static abstract class SimpleSwipeListener<T extends Object> implements SwipeListener<T> {
@@ -518,7 +518,7 @@ public class SwipeToAction {
         }
 
         @Override
-        public void completeReset() {
+        public void resetComplete() {
         }
     }
 

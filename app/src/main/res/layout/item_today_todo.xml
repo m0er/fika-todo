@@ -51,22 +51,35 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:focusable="true"
+        android:focusableInTouchMode="true"
         android:clickable="true"
+        android:padding="@dimen/default_gap"
         android:foreground="?android:attr/selectableItemBackground"
-        android:background="@color/colorItemBackground"
-        android:padding="@dimen/default_gap">
+        android:background="@color/colorItemBackground">
 
         <TextView
             android:id="@+id/todoContent"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:background="@null"
             android:maxLines="2"
             android:ellipsize="end"
             android:textSize="13dp"
-            android:gravity="center_vertical"
+            android:text="Mauris non tempor quam, et lacinia sapien."
+            style="@style/TextAppearance.AppCompat.Body2" />
+
+        <todo.fika.fikatodo.view.FikaEditText
+            android:id="@+id/editTodoContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:background="@null"
-            style="@style/TextAppearance.AppCompat.Body2"
-            tools:text="못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며\n못할 목숨이 어디 쓸쓸한 때문이다. 인간이 사랑의 같으며"/>
+            android:maxLines="2"
+            android:inputType="textMultiLine"
+            android:imeOptions="actionDone"
+            android:textSize="13dp"
+            android:visibility="gone"
+            style="@style/TextAppearance.AppCompat.Body2" />
 
     </RelativeLayout>
 
