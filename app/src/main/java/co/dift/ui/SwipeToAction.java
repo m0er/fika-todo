@@ -291,6 +291,7 @@ public class SwipeToAction {
                     @Override
                     public void onAnimationEnd(Animator animation) {
                         runningAnimationsOn.remove(animated);
+                        swipeListener.completeReset();
                         checkQueue();
                     }
 
@@ -494,6 +495,7 @@ public class SwipeToAction {
         boolean swipeRight(T itemData);
         void onClick(T itemData);
         void onLongClick(T itemData);
+        void completeReset();
     }
 
     public static abstract class SimpleSwipeListener<T extends Object> implements SwipeListener<T> {
@@ -513,7 +515,10 @@ public class SwipeToAction {
 
         @Override
         public void onLongClick(T itemData) {
+        }
 
+        @Override
+        public void completeReset() {
         }
     }
 

@@ -7,7 +7,6 @@ import android.os.PersistableBundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,25 +18,25 @@ import com.github.pavlospt.CircleView;
 
 import org.androidannotations.annotations.AfterInject;
 import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.Bean;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.InstanceState;
 import org.androidannotations.annotations.ViewById;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import co.dift.ui.SwipeToAction;
+import hirondelle.date4j.DateTime;
+import io.realm.RealmResults;
 import todo.fika.fikatodo.R;
 import todo.fika.fikatodo.model.FikaTodo;
+import todo.fika.fikatodo.realm.PrimaryKeyFactory;
 import todo.fika.fikatodo.util.Const.Animation;
 import todo.fika.fikatodo.util.DateUtils;
-import todo.fika.fikatodo.util.Logger;
 import todo.fika.fikatodo.util.ViewUtils;
+import todo.fika.fikatodo.view.BaseAppCompatActivity;
 
 @EActivity(R.layout.activity_fika_today)
-public class FikaTodayActivity extends AppCompatActivity {
-    final Logger logger = Logger.Factory.getLogger(getClass());
+public class FikaTodayActivity extends BaseAppCompatActivity {
 
     @ViewById
     View rootView;
@@ -63,16 +62,21 @@ public class FikaTodayActivity extends AppCompatActivity {
     private ActionBarDrawerToggle drawerToggle;
 
     @InstanceState
+    DateTime now;
+
+    @InstanceState
     int weekDay;
 
-    private List<FikaTodo> todos;
+    @Bean
+    PrimaryKeyFactory primaryKeyFactory;
+
     private SwipeToAction swipeToAction;
 
     @AfterInject
     void afterInject() {
+        now = DateUtils.now();
         weekDay = DateUtils.getWeekDay();
         logger.d("weekDay: %d", weekDay);
-        todos = new ArrayList<>();
     }
 
     @AfterViews
@@ -92,23 +96,33 @@ public class FikaTodayActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        recyclerView.setAdapter(new FikaTodayAdapter(todos));
+        recyclerView.setAdapter(new FikaTodayAdapter(primaryKeyFactory, getTodayTodos()));
 
         swipeToAction = new SwipeToAction(recyclerView, new SwipeToAction.SimpleSwipeListener<FikaTodo>() {
             @Override
             public boolean swipeLeft(FikaTodo itemData) {
-                int position = todos.indexOf(itemData);
-                todos.remove(itemData);
-                recyclerView.getAdapter().notifyItemRemoved(position);
+                FikaTodo target = realm.where(FikaTodo.class).equalTo("id", itemData.getId()).findFirst();
+                if (target != null) {
+                    realm.beginTransaction();
+                    target.removeFromRealm();
+                    realm.commitTransaction();
+                }
+
+                recyclerView.getAdapter().notifyDataSetChanged();
                 updateInCompleteTodoCount();
                 return true;
             }
 
             @Override
             public boolean swipeRight(FikaTodo itemData) {
-                itemData.setCompleted(true);
-                int position = todos.indexOf(itemData);
-                recyclerView.getAdapter().notifyItemChanged(position);
+                FikaTodo target = realm.where(FikaTodo.class).equalTo("id", itemData.getId()).findFirst();
+                if (target != null) {
+                    realm.beginTransaction();
+                    target.toggleCompleted();
+                    realm.commitTransaction();
+                }
+
+                recyclerView.getAdapter().notifyDataSetChanged();
                 updateInCompleteTodoCount();
                 return true;
             }
@@ -134,17 +148,20 @@ public class FikaTodayActivity extends AppCompatActivity {
     }
 
     public void updateInCompleteTodoCount() {
-        todoCount.setTitleText(String.valueOf(getIncompletTodoCount()));
+        todoCount.setTitleText(String.valueOf(getIncompleteTodoCount()));
     }
 
-    private int getIncompletTodoCount() {
-        int count = 0;
-        for (FikaTodo todo : todos) {
-            if (!todo.isCompleted()) {
-                count++;
-            }
-        }
-        return count;
+    private int getIncompleteTodoCount() {
+        return (int) realm.where(FikaTodo.class)
+                .equalTo("completed", false)
+                .between("createdDate", DateUtils.startDate(now), DateUtils.endDate(now))
+                .count();
+    }
+
+    private RealmResults<FikaTodo> getTodayTodos() {
+        return realm.where(FikaTodo.class)
+                .between("createdDate", DateUtils.startDate(now), DateUtils.endDate(now))
+                .findAll();
     }
 
     @Override

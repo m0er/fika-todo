@@ -1,6 +1,7 @@
 package todo.fika.fikatodo.util;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
@@ -32,5 +33,17 @@ public class DateUtils {
     public static String getTodayDateTime() {
         DateTime now = DateTime.now(DEFAULT_TIMEZONE);
         return now.format("D, MMMM YYYY", Locale.ENGLISH);
+    }
+
+    public static DateTime now() {
+        return DateTime.now(DEFAULT_TIMEZONE);
+    }
+
+    public static Date startDate(DateTime now) {
+        return new Date(now.getStartOfDay().getMilliseconds(DEFAULT_TIMEZONE));
+    }
+
+    public static Date endDate(DateTime now) {
+        return new Date(now.getEndOfDay().getMilliseconds(DEFAULT_TIMEZONE));
     }
 }

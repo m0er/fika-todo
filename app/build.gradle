@@ -61,6 +61,7 @@ repositories {
     maven {
         url 'http://repo.spring.io/milestone'
     }
+    maven { url "https://jitpack.io" }
 }
 
 dependencies {
@@ -87,8 +88,11 @@ dependencies {
     compile "com.android.support:design:$supportVersion"
     compile 'org.springframework.android:spring-android-rest-template:2.0.0.M3'
     compile 'com.google.code.gson:gson:2.6.2'
-    compile ('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.6@aar'){
-        transitive=true
+    compile('com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:0.8.6@aar') {
+        transitive = true
     }
     compile 'com.github.pavlospt:circleview:1.2'
+    compile('com.github.thorbenprimke:realm-recyclerview:0.9.13') {
+        exclude group: 'io.realm'
+    }
 }
