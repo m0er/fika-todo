@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.neenbedankt.android-apt'
 apply plugin: 'realm-android'
+apply plugin: 'me.tatarka.retrolambda'
 
 def AAVersion = '4.0.0'
 def supportVersion = '23.2.1'
@@ -12,6 +13,7 @@ buildscript {
     dependencies {
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath "io.realm:realm-gradle-plugin:0.88.2"
+        classpath 'me.tatarka:gradle-retrolambda:3.2.5'
     }
 }
 
@@ -35,7 +37,7 @@ android {
 
     defaultConfig {
         applicationId "todo.fika.fikatodo"
-        minSdkVersion 21
+        minSdkVersion 16
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
@@ -54,6 +56,15 @@ android {
         exclude 'META-INF/NOTICE.txt'
         exclude 'META-INF/notice.txt'
         exclude 'META-INF/license.txt'
+        exclude 'META-INF/services/javax.annotation.processing.Processor'
+    }
+    lintOptions {
+        abortOnError false
+        disable 'InvalidPackage'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -97,4 +108,6 @@ dependencies {
     compile('com.github.thorbenprimke:realm-recyclerview:0.9.13') {
         exclude group: 'io.realm'
     }
+    compile 'io.reactivex:rxandroid:1.1.0'
+    compile 'io.reactivex:rxjava:1.1.2'
 }
